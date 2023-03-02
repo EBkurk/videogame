@@ -57,14 +57,14 @@ function processContactForm(){
     
         $ps = $db->query($sql);
 
-        $games = $ps->fetchAll(PDO::FETCH_ASSOC);
+        $tableaugames = $ps->fetchAll(PDO::FETCH_ASSOC);
     
 
         // var_dump($sql);
         // var_dump($ps);
         // var_dump($result);
 
-        return $games;
+        return $tableaugames;
 
     }
 
@@ -73,10 +73,51 @@ function processContactForm(){
         $db = dbConnection();
 
         $sql = "SELECT * FROM game WHERE id = $id";
-        $ps = $db->prepare($sql);
-        $result = $ps->execute();
+        $ps = $db->query($sql);
+        $game = $ps->fetchAll(PDO::FETCH_ASSOC);
 
-        return $result;
+        return $game;
     }
+
+    function getRandomGames($count) {
+       
+        $sql = "SELECT * FROM game ORDER BY RAND() LIMIT $count";
+        
+        $db = dbConnection();
+
+        // Exécution de la requête
+        $ps = $db->query($sql);
+        
+        // Récupération des données sous forme de tableau associatif
+        $randomGames = $ps->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Retourne le tableau des jeux
+        return $randomGames;
+    }
+
+    function ProcessLoginForm(){
+
+        $email = $_POST['email'];
+        $mdp = $_POST['mdp'];
+
+    }
+
+    function VerifEmailMdp($email,$mdp){
+
+    $db = dbConnection();
+    // Requête pour vérifier si l'utilisateur existe dans la base de données
+    $sql = "SELECT * FROM admin WHERE email = '$email' AND mdp = '$mdp'";
+    $result = $db->query($sql);
+
+    // Vérifier si l'utilisateur existe et renvoyer le résultat
+    // if ($result->num_rows > 0) {
+    //     // L'utilisateur existe
+    //     return true;
+    // }
+
+    // else {
+    //     return false;
+    // }
+}
 
 ?>
