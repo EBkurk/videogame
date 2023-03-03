@@ -10,7 +10,7 @@
 
 <h1>Connection</h1>
 
-<form method="post" action="index.php">
+<form method="post" action="http://localhost:8000/videogames/admin/index.php">
     <label for="email">E-mail:</label>
     <input type="email" id="email" name="email" required>
     <br>
